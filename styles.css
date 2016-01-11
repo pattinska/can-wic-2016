@@ -1,0 +1,56 @@
+body {
+  background-color: #000;
+  margin: 100px 20px;
+}
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 1;
+}
+h1 {
+  margin: 0;
+  color: #E50914;
+  font-size: 30px;
+}
+h2 {
+  color: #999;
+  margin: 0;
+}
+input.search-box {
+  width: 250px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px;
+  float: right;
+  background-color: #000;
+  color: #FFF;
+}
+
+ul.ms-spinner {
+  margin: 0;
+  padding: 20px 0px;
+  white-space: nowrap;
+  overflow: auto;
+  list-style-type: none;
+}
+ul.ms-spinner li {
+  margin: 0;
+  margin-right: 4px;
+  padding: 0;
+  display: inline-block;
+}
+
+img.ms-movie {
+  height: 135px;
+  width: 235px;
+  cursor: pointer;
+  transition: all .2s ease-out;
+}
+img.ms-movie:hover {
+  transition: all .2s ease-in 0.3s;
+  transform: scale(1.2);
+}

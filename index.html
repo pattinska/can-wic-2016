@@ -1,0 +1,71 @@
+<html>
+<head>
+	<title>ms Netflix</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<link rel="stylesheet" href="/styles.css"/>
+</head>
+<body>
+
+	<div ng-app="msNetflix">
+		<nav>
+	  		<input ng-model="search" class="search-box" placeholder="Titles, people, genres"/>
+	  		<h1>ms NETFLIX</h1>
+	  	</nav>
+	  	<ms-spinner-container search="search"></ms-spinner-container>
+	</div>
+
+
+	<script type="text/javascript">
+		// Create msNetflix Module
+		angular.module('msNetflix', ['msNetflix.services', 'msNetflix.directives'])
+
+		angular.module('msNetflix.services', [])
+			// Create movies Service
+			.service('movies', function($http) {
+				return {
+					getSpinnerData: function() {
+						return $http.get('http://localhost:3000/data');
+					}
+				};
+			});
+
+		angular.module('msNetflix.directives', [])
+			// Create <ms-spinner-container></ms-spinner-container>
+			.directive('msSpinnerContainer', function(movies) {
+				return {
+					restrict: 'E',
+					scope: {
+						search: '='
+					},
+					template: [
+						'<div class="spinner-container" ng-repeat="spinner in spinners | filter:search">',
+							'<h2>{{ spinner.genre }}</h2>',
+							'<ms-movie-spinner movies="spinner.movies" search="search"></ms-movie-spinner>',
+						'</div>'].join(''),
+					link: function($scope) {
+						movies.getSpinnerData().then(function(result) {
+							$scope.spinners = result.data;
+						});
+					}
+				};
+			})
+
+			// Create <ms-movie-spinner></ms-movie-spinner>
+			.directive('msMovieSpinner', function() {
+				return {
+					restrict: 'E',
+					scope: {
+						movies: '=',
+						search: '='
+					},
+					template: [
+						'<ul class="ms-spinner">',
+							'<li ng-repeat="movie in movies | filter:search">',
+								'<img class="ms-movie" ng-src="{{movie.img_url}}" alt="{{movie.title}}"/>',
+							'</li>',
+						'</ul>'].join('')
+				};
+			});
+	</script>
+</body>
+</html>
