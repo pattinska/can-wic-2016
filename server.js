@@ -2,9 +2,11 @@ var http = require('http');
 var fs = require('fs');
 var index = fs.readFileSync('index.html');
 var styles = fs.readFileSync('styles.css');
+var msFlixApp = fs.readFileSync('msFlixApp.js');
 
 http.createServer(function (req, res) {
 	switch(req.url) {
+		
 		case '/index.html': {
 			res.writeHead(200, {'Content-Type': 'text/html'});
   			res.end(index);
@@ -13,6 +15,11 @@ http.createServer(function (req, res) {
 		case '/styles.css': {
 			res.writeHead(200, {'Content-Type': 'text/css'});
   			res.end(styles);
+  			break;
+		}
+		case '/msFlixApp.js': {
+			res.writeHead(200, {'Content-Type': 'text/javascript'});
+  			res.end(msFlixApp);
   			break;
 		}
 		default: {
